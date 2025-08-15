@@ -1,75 +1,21 @@
-# Nuxt Minimal Starter
+# Gerador de HTML e-mail friendly com Nuxt 4 e Maizzle
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Ferramentas Utilizadas
 
-## Setup
+Estamos utilizando o motor de processamento do Maizzle para fazer o mapeamento de classes utilizadas nos componentes Vue e substituir pelo style inline das mesmas. A grande vantagem de utilizar esta ferramenta é que ela já vem com o tailwind embutido nela, nos permitindo usar utility classes na construção dos templates de e-mail, e graças ao preset `tailwind-preset-email` temos a garantia de que o style gerado no final será e-mail friendly, subsitituindo `rem` por `px` por exemplo.
 
-Make sure to install dependencies:
+[Documentação Oficial do Maizzle](https://maizzle.com/docs/api);
 
-```bash
-# npm
-npm install
+Também usamos o Cheerio para facilitar a sanitização do HTML final, removendo meta tags adicionadas pelo Nuxt e pelo Devtools
 
-# pnpm
-pnpm install
+[Documentação do Cheerio](https://cheerio.js.org/)
 
-# yarn
-yarn install
+## Como funciona o projeto
 
-# bun
-bun install
-```
+Você pode criar os componentes principais dos templates dentro de `~/app/pages` e também dá para criar componentes reutilizáveis dentro de `~/app/components`. Para visualizar o resultado no browser acesse o endpoint de preview passando o caminho do template que se deseja visualizar. Ex: `http://localhost:3000/api/preview?template=/email-template`. Vale ressaltar que você estará visualizando um HTML já sanitizado e com os styles inline exatamente como será entregue no endpoint de integração.
 
-## Development Server
+Para obter o HTMl de um template via integração basta fazer um GET no endpoint correspondente ao template desejado e passar os parâmetros via Query.
 
-Start the development server on `http://localhost:3000`:
+Ex: `GET http://localhost:3000/api/email-template?nome=NomeCliente`
 
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+A idéia é que para cada template novo seja criado um endpoint de consumo.
