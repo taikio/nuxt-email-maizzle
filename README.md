@@ -10,6 +10,10 @@ Também usamos o Cheerio para facilitar a sanitização do HTML final, removendo
 
 [Documentação do Cheerio](https://cheerio.js.org/)
 
+Adicionamos o motor de renderização do vue-email para processar os componentes Vue e transformá-los em HTML, sem ter a necessidade de fazer uma requisição GET para a URL do template
+
+[Documentação do Vue-email](https://vuemail.net/getting-started/usage)
+
 ## Como funciona o projeto
 
 Você pode criar os componentes principais dos templates dentro de `~/app/pages` e também dá para criar componentes reutilizáveis dentro de `~/app/components`. Para visualizar o resultado no browser acesse o endpoint de preview passando o caminho do template que se deseja visualizar. Ex: `http://localhost:3000/api/preview?template=/email-template`. Vale ressaltar que você estará visualizando um HTML já sanitizado e com os styles inline exatamente como será entregue no endpoint de integração.
