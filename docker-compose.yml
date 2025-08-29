@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: email-template-poc
+    ports:
+      - "3000:3000" # Aplicação Nuxt
+      - "24678:24678" # Nuxt DevTools
+    volumes:
+      # Monta código fonte para hot reload
+      - ./app:/app/app:delegated
+      - ./server:/app/server:delegated
+      - ./public:/app/public:delegated
+      - ./nuxt.config.ts:/app/nuxt.config.ts:delegated
+      - ./maizzle.config.js:/app/maizzle.config.js:delegated
+      - ./tailwind.config.js:/app/tailwind.config.js:delegated
+      - ./package.json:/app/package.json:delegated
+
+      # Protege node_modules do container
+      - node_modules:/app/node_modules
+      - .nuxt:/app/.nuxt
+    environment:
+      - NODE_ENV=development
+      - NITRO_HOST=0.0.0.0
+      - NITRO_PORT=3000
+      - NUXT_DEVTOOLS=true
+      - CHOKIDAR_USEPOLLING=true # Importante para hot reload no Docker
+    stdin_open: true
+    tty: true
+
+volumes:
+  node_modules:
+  .nuxt:
